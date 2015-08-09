@@ -1,0 +1,23 @@
+{
+  "name": "esh-deployment-cloud",
+  "version": "1.0.0",
+  "description": "ESH-deployment对云操作",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wspandihai/ESH-deployment-Cloud.git"
+  },
+  "author": "wspandihai",
+  "bugs": {
+    "url": "https://github.com/wspandihai/ESH-deployment-Cloud/issues"
+  },
+  "homepage": "https://github.com/wspandihai/ESH-deployment-Cloud#readme",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "lodash": "^3.10.1",
+    "qn": "^1.0.1"
+  }
+}
