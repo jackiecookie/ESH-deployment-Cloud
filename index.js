@@ -18,7 +18,7 @@ var Cloud = function(qnConfig) {
 
 
 Cloud.prototype.Start = function(file) {
-	if (!file.exists || !file.asdok) return Promise.resolve(file);
+	if (!file.exists) return Promise.resolve(file);
 	return this.GetCloudList()
 		.then(this.GetRemoveList(file.rePath))
 		.then(this.RemoveCloudList);
