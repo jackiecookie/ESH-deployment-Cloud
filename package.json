@@ -1,6 +1,6 @@
 {
   "name": "esh-deployment-cloud",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ESH-deployment对云操作",
   "main": "index.js",
   "scripts": {

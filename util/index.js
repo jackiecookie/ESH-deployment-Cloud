@@ -17,6 +17,7 @@ var splitCloudUrl = function(cloudUrl) {
 }
 
 var judeUrl = function(cloudUrl, rePath) {
+	rePath = rePath.replace(/\\/g, '/');
 	if (_.endsWith(cloudUrl, rePath)) {
 		return true;
 	}
