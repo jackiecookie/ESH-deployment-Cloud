@@ -1,6 +1,6 @@
 var promises = require('bluebird');
 
-var qn = require('qn');
+var qn = require('esh-qn');
 
 
 var util = require('./util');
