@@ -8,6 +8,8 @@ var qnclient;
 
 var _ = require('lodash');
 
+var filemodel = require('./File');
+
 
 
 var Cloud = function(qnConfig) {
@@ -17,11 +19,19 @@ var Cloud = function(qnConfig) {
 
 
 
-Cloud.prototype.Start = function(file) {
+Cloud.prototype.Start = function(file, callback) {
+	var fileisfilemodel = file instanceof filemodel;
+	if (!fileisfilemodel) {
+		file = new filemodel(file);
+	}
 	if (!file.exists) return Promise.resolve(file);
 	return this.GetCloudList()
 		.then(this.GetRemoveList(file.rePath))
-		.then(this.RemoveCloudList);
+		.then(this.RemoveCloudList).then(function(arg) {
+			return callback(null, arg);
+		}).catch(function(err) {
+			return callback(err, null);
+		});
 }
 
 //获取云上面的静态文件列表
@@ -55,7 +65,7 @@ Cloud.prototype.RemoveCloudList = function(removeKeys) {
 	removeKeys = _.compact(removeKeys);
 	console.log('需要删除' + removeKeys.length + '个key');
 	return promises.map(removeKeys, function(removeKey) {
-		return qnclient.deleteAsync(removeKey);
+		return qnclient.prefetchAsync(removeKey);
 	})
 }
 
