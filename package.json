@@ -1,6 +1,6 @@
 {
   "name": "esh-deployment-cloud",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "ESH-deployment对云操作",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,13 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "lodash": "^3.10.1",
-    "qn": "^1.0.1"
+    "esh-qn": "^1.0.0"
+  },
+  "devDependencies": {
+    "should": "~4.0.4",
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "mocha test/test.js --timeout 150000"
   }
 }
