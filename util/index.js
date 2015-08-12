@@ -28,7 +28,7 @@ module.exports.CloudKeyCanRemove = function(cloudUrl, rePath) {
 		return true;
 	}
 	var cloudUrls = splitCloudUrl(cloudUrl);
-	cloudUrl = _.dropWhile(cloudUrls, function(n) {
+	cloudUrls = _.dropWhile(cloudUrls, function(n) {
 		return !judeUrl(n, rePath);
 	});
 	return cloudUrls.length > 0;

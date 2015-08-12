@@ -27,7 +27,7 @@ Cloud.prototype.Start = function(file, callback) {
 	if (!file.exists) return Promise.resolve(file);
 	return this.GetCloudList()
 		.then(this.GetRemoveList(file.rePath))
-		.then(this.RemoveCloudList).then(function(arg) {
+		.then(this.prefetchCloudKey).then(function(arg) {
 			return callback(null, arg);
 		}).catch(function(err) {
 			return callback(err, null);
@@ -60,10 +60,22 @@ Cloud.prototype.GetRemoveList = function(rePath) {
 
 }
 
+
+
 //删除key
 Cloud.prototype.RemoveCloudList = function(removeKeys) {
 	removeKeys = _.compact(removeKeys);
 	console.log('需要删除' + removeKeys.length + '个key');
+	return promises.map(removeKeys, function(removeKey) {
+		console.log(removeKey);
+		return qnclient.deleteAsync(removeKey);
+	})
+}
+
+
+Cloud.prototype.prefetchCloudKey = function(removeKeys) {
+	removeKeys = _.compact(removeKeys);
+	console.log('需要获取' + removeKeys.length + '个key');
 	return promises.map(removeKeys, function(removeKey) {
 		return qnclient.prefetchAsync(removeKey);
 	})

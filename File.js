@@ -5,6 +5,7 @@ var exists = require('fs').existsSync;
 
 
 var File = function(p, dirname) {
+
 	if (!dirname) dirname = process.cwd();
 	var extname = pathModule.extname(p);
 	p += (extname ? '' : '.js');
