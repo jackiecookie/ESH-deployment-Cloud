@@ -22,7 +22,8 @@
   },
   "devDependencies": {
     "should": "~4.0.4",
-    "mocha": "*"
+    "mocha": "*",
+    "istanbul": "*"
   },
   "scripts": {
     "test": "mocha test/test.js --timeout 150000"
