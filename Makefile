@@ -1,4 +1,4 @@
-TESTS = test/*.test.js
+TESTS = test/*.js
 REPORTER = spec
 TIMEOUT = 15000
 MOCHA_OPTS =
