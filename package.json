@@ -1,6 +1,6 @@
 {
   "name": "esh-deployment-cloud",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "ESH-deployment对云操作",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "istanbul": "*"
   },
   "scripts": {
-    "test": "mocha test/test.js --timeout 150000"
+    "test": "mocha test/*.js --timeout 150000",
+    "test-debug": "mocha --debug-brk test/test-util.js "
   }
 }
