@@ -39,7 +39,6 @@ Cloud.prototype.GetCloudList = function() {
 	var ItemCloudList = this.ItemCloudList;
 	if (ItemCloudList) return promises.resolve(ItemCloudList);
 	return qnclient.listAsync('/').then(function(arg) {
-		debugger;
 		ItemCloudList = arg[0].items;
 		return ItemCloudList;
 	});
