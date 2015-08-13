@@ -41,7 +41,7 @@ describe('clous.test.js', function() {
 
 		it('should return ok with  filemodule prefetchCloudKey', function(done) {
 			var f = new filemodel(rsFile, 'D:\\开发库\\WebEsh\\05编码\\WebEsh\\2.Web应用程序\\WebEsh.Web\\Static\\');
-			var info = this.cloud.Start(f, function(err, info) {
+			var info = this.cloud.Start(rsOpFile, function(err, info) {
 				should.not.exist(err);
 				should.exist(info);
 				done();
