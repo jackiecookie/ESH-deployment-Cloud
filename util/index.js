@@ -10,7 +10,7 @@ var splitCloudUrl = function(cloudUrl) {
 	if (regresult && regresult.length == 3) {
 		var item = regresult[2].split(',');
 		_.map(item, function(n) {
-			result.push(path.join(regresult[1], n));
+			result.push(regresult[1] + n); //path.join(regresult[1], n)
 		})
 	}
 	return result;
