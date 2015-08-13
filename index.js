@@ -19,15 +19,21 @@ var Cloud = function(qnConfig) {
 
 
 
-Cloud.prototype.Start = function(file, callback) {
+Cloud.prototype.Start = function(file, option, callback) {
+	if (!callback && _.isFunction(option)) {
+		callback = option;
+		option = {};
+	}
+	var isRemoveKey = option && !!option.RemoveKey;
 	var fileisfilemodel = file instanceof filemodel;
 	if (!fileisfilemodel) {
 		file = new filemodel(file);
 	}
 	if (!file.exists) return Promise.resolve(file);
+	var lastPromise = isRemoveKey ? this.RemoveCloudList : this.prefetchCloudKey;
 	return this.GetCloudList()
 		.then(this.GetRemoveList(file.rePath))
-		.then(this.prefetchCloudKey).then(function(arg) {
+		.then(lastPromise).then(function(arg) {
 			return callback(null, arg);
 		}).catch(function(err) {
 			return callback(err, null);
