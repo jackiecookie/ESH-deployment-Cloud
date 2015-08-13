@@ -1,6 +1,5 @@
 var _ = require('lodash');
 
-var path = require('path');
 
 var splitCloudUrl = function(cloudUrl) {
 	var result = [];
