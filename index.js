@@ -20,9 +20,15 @@ var Cloud = function(qnConfig) {
 
 
 Cloud.prototype.Start = function(file, option, callback) {
-	if (!callback && _.isFunction(option)) {
-		callback = option;
-		option = {};
+	if (!callback) {
+		if (_.isFunction(option)) {
+			callback = option;
+			option = {};
+		} else {
+			callback = function() {
+				return "ok"
+			};
+		}
 	}
 	var isRemoveKey = option && !!option.RemoveKey;
 	var fileisfilemodel = file instanceof filemodel;
