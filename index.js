@@ -1,7 +1,8 @@
+var pathModule = require('path');
+
 var promises = require('bluebird');
 
 var qn = require('esh-qn');
-
 
 var util = require('./util');
 var qnclient;
@@ -10,11 +11,16 @@ var _ = require('lodash');
 
 var filemodel = require('./File');
 
+var promisesprocess = promises.promisifyAll(require('child_process'));
+
+var Config = null;
+
 
 
 var Cloud = function(qnConfig) {
+	Config = qnConfig;
 	this.ItemCloudList = null;
-	qnclient = promises.promisifyAll(qn.create(qnConfig));
+	qnclient = promises.promisifyAll(qn.create(Config));
 }
 
 
@@ -39,7 +45,9 @@ Cloud.prototype.Start = function(file, option, callback) {
 	var lastPromise = isRemoveKey ? this.RemoveCloudList : this.prefetchCloudKey;
 	return this.GetCloudList()
 		.then(this.GetRemoveList(file.rePath))
-		.then(lastPromise).then(function(arg) {
+		.then(lastPromise)
+		.then(this.ExecQnClient)
+		.then(function(arg) {
 			return callback(null, arg);
 		}).catch(function(err) {
 			return callback(err, null);
@@ -78,18 +86,34 @@ Cloud.prototype.RemoveCloudList = function(removeKeys) {
 	removeKeys = _.compact(removeKeys);
 	console.log('需要删除' + removeKeys.length + '个key');
 	return promises.map(removeKeys, function(removeKey) {
-		console.log(removeKey);
-		return qnclient.deleteAsync(removeKey);
+		return qnclient.deleteAsync(removeKey).then(function() {
+			return removeKey
+		});
 	})
 }
 
-
+//通知回源
 Cloud.prototype.prefetchCloudKey = function(removeKeys) {
 	removeKeys = _.compact(removeKeys);
 	console.log('需要获取' + removeKeys.length + '个key');
 	return promises.map(removeKeys, function(removeKey) {
-		return qnclient.prefetchAsync(removeKey);
+		return qnclient.prefetchAsync(removeKey).then(function() {
+			return removeKey
+		});;
 	})
+}
+
+
+
+Cloud.prototype.ExecQnClient = function(removeKeys) {
+	var qnClientPath = pathModule.resolve(process.cwd(), 'qrsctl.exe');
+	var len = removeKeys.length;
+	for (var i = len - 1; i >= 0; i--) {
+		removeKeys[i] = Config.domain + '/' + removeKeys[i];
+	};
+	var UrlsStr = removeKeys.join(',');
+	var cmd = 'qrsctl.exe login ' + Config.userName + ' ' + Config.password + ' &qrsctl cdn/refresh static ' + UrlsStr;
+	return promisesprocess.execAsync(cmd);
 }
 
 
