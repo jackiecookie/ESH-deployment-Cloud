@@ -104,12 +104,16 @@ Cloud.prototype.prefetchCloudKey = function(removeKeys) {
 }
 
 
-
+//执行qrsctl.exe更新缓存
 Cloud.prototype.ExecQnClient = function(removeKeys) {
 	var qnClientPath = pathModule.resolve(process.cwd(), 'qrsctl.exe');
 	var len = removeKeys.length;
+	if (len == 0) {
+		return promises.resolve(['refresh successed']);
+	}
 	for (var i = len - 1; i >= 0; i--) {
-		removeKeys[i] = Config.domain + '/' + removeKeys[i];
+		//将原有逗号合并的逗号转义,并且拼上原先存在的key
+		removeKeys[i] = Config.domain + '/' + removeKeys[i].replace(/[,]/g, '%2C');
 	};
 	var UrlsStr = removeKeys.join(',');
 	var cmd = 'qrsctl.exe login ' + Config.userName + ' ' + Config.password + ' &qrsctl cdn/refresh static ' + UrlsStr;
