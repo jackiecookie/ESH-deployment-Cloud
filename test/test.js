@@ -13,7 +13,14 @@ var rsFile = 'D:\\开发库\\WebEsh\\05编码\\WebEsh\\2.Web应用程序\\WebEsh
 
 describe('clous.test.js', function() {
 	before(function() {
-		this.cloud = new cloud();
+		this.cloud = new cloud({
+			accessKey: '9Edo-bSS6SAuwJL6i6jJ_FUEVg5TE8Fz-AStaDQj',
+			secretKey: 'BmNldydnpWXpstB3C4dVZD2bJrr9Pjl7OmbrIhgB',
+			bucket: 'staticspace',
+			domain: 'static.easysofthome.com',
+			userName: 'philip@easysofthome.com',
+			password: 'zf87565608'
+		});
 	});
 
 	describe('Start', function() {
@@ -38,6 +45,7 @@ describe('clous.test.js', function() {
 			var info = this.cloud.Start(rsOpFile, function(err, info) {
 				should.not.exist(err);
 				should.exist(info);
+				console.log(info[0]);
 				done();
 			});
 		});
