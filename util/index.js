@@ -3,7 +3,7 @@ var _ = require('lodash');
 
 var splitCloudUrl = function(cloudUrl) {
 	var result = [];
-	var regex = /Static\/\$\$(.*)/;
+	var regex = /Static\/(.*\/?)\$\$(.*)/;
 	var regresult = regex.exec(cloudUrl);
 
 	if (regresult && regresult.length == 3) {
