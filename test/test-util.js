@@ -12,14 +12,14 @@ describe('test util', function() {
 
 	describe('CloudKeyCanRemove', function() {
 
-		//var path='Static/js/lib/layer/layer.ext.js'
-		it('should return true with normalpath ', function(done) {
-			debugger;
-			var key = 'Static/js/lib/layer/layer.ext.js';
-			var result = this.util.CloudKeyCanRemove(key, this.file.rePath);
-			(result).should.be.exactly(true);
-			done();
-		});
+		////var path='Static/js/lib/layer/layer.ext.js'
+		//it('should return true with normalpath ', function(done) {
+		//	debugger;
+		//	var key = 'Static/js/lib/layer/layer.ext.js';
+		//	var result = this.util.CloudKeyCanRemove(key, this.file.rePath);
+		//	(result).should.be.exactly(true);
+		//	done();
+		//});
 
 
 		it('should return true with combopath and in the start ', function(done) {
