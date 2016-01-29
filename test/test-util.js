@@ -16,7 +16,7 @@ describe('test util', function() {
 		it('should return true with normalpath ', function(done) {
 			debugger;
 			var key = 'Static/js/lib/layer/layer.ext.js';
-			var result = this.util.CloudKeyCanRemove(key, this.file.rePath);
+			var result = this.util.CloudKeyCanRemove(key, 'Static/js/lib/layer/layer.ext.js');
 			(result).should.be.exactly(true);
 			done();
 		});
