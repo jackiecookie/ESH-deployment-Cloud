@@ -24,7 +24,7 @@ describe('test util', function() {
 
 		it('should return true with combopath and in the start ', function(done) {
 			debugger;
-			var key = 'Static/&&b.js,c.js'
+			var key = 'Static/$$b.js,c.js'
 			var result = this.util.CloudKeyCanRemove(key, this.file.rePath);
 			(result).should.be.exactly(true);
 			done();
